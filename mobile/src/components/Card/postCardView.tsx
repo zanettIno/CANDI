@@ -15,8 +15,9 @@ import ReportModal from '@/components/Modals/ReportModal';
 import ActionSheet from '@/components/ActionSheet';
 import { useProfile } from '@/context/ProfileContext';
 import { useToast } from '@/context/NotificationContext';
+import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
 
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 const HIT_SLOP = { top: 10, bottom: 10, left: 10, right: 10 };
 
 // ── Imagem do post com fallback ──────────────────────────────────────────────

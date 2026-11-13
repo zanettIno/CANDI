@@ -13,6 +13,7 @@ import {
   ListObjectsV2Command,
 } from '@aws-sdk/client-s3';
 import { S3Provider } from '../s3/s3.provider';
+import { s3ObjectUrl } from '../aws/aws-local.config';
 import { Readable } from 'stream';
 
 @Injectable()
@@ -71,7 +72,7 @@ export class DiaryService {
       return {
         message: 'Diário criado com sucesso',
         filePath: key,
-        url: `https://${this.bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
+        url: s3ObjectUrl(this.bucketName, key, process.env.AWS_REGION),
       };
     } catch (err) {
       throw new InternalServerErrorException('Erro ao criar o diário');

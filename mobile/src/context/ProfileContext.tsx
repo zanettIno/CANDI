@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API_BASE_URL } from '@/constants/api';
+import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '@/constants/api';
 
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 
 export type UserRole = 'patient' | 'admin' | 'support';
 

@@ -33,12 +33,12 @@ import { useProfile } from '@/context/ProfileContext';
 import { useChat } from '@/context/ChatContext';
 import { useNotification, useToast } from '@/context/NotificationContext';
 import { formatTime, formatRelativeDate } from '@/utils/dateFormat';
-import { API_BASE_URL } from '@/constants/api';
+import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 const profilePicUri = (id?: string | null) => id ? `${S3_BASE}/${id}.jpg` : undefined;
 const SOCKET_URL = API_BASE_URL.replace('/api', '');
 

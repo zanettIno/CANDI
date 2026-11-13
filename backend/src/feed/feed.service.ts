@@ -5,6 +5,7 @@ import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
 import { CreatePostDto } from './dto/feed.dto';
 import { S3Provider } from '../s3/s3.provider';
+import { s3ObjectUrl } from '../aws/aws-local.config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import sharp = require('sharp');
 
@@ -100,7 +101,7 @@ export class FeedService {
           }),
         );
         const region = process.env.AWS_S3_REGION || process.env.AWS_REGION;
-        fileUrl = `https://${this.bucketName}.s3.${region}.amazonaws.com/${fileKey}`;
+        fileUrl = s3ObjectUrl(this.bucketName, fileKey, region);
       } catch (error) {
         console.error('Erro ao fazer upload para S3:', error);
         throw new InternalServerErrorException('Não foi possível salvar o arquivo da postagem.');

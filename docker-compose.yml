@@ -1,0 +1,110 @@
+# CANDI — ambiente local completo (substitui EC2 + DynamoDB + S3 + Lambda da AWS)
+#
+#   docker compose up -d --build      -> sobe tudo
+#   docker compose logs -f backend    -> acompanha o backend
+#   docker compose down               -> para (os dados ficam nos volumes)
+#   docker compose down -v            -> para e APAGA os dados
+#
+# As variáveis ${...} vêm do arquivo .env da raiz (copie de .env.example).
+
+name: candi
+
+services:
+  # ── Banco de dados (substitui o DynamoDB da AWS) ──────────────────────────
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    container_name: candi-dynamodb
+    # -sharedDb: backend e API de IA enxergam as mesmas tabelas,
+    # independente de credenciais/região usadas por cada um.
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    working_dir: /home/dynamodblocal
+    user: root # necessário para gravar no volume
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -o /dev/null http://localhost:8000 || bash -c 'exec 3<>/dev/tcp/127.0.0.1/8000'"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  # ── Armazenamento de arquivos (substitui os buckets S3 da AWS) ────────────
+  s3:
+    image: luofuxiang/local-s3:latest
+    container_name: candi-s3
+    environment:
+      MODE: PERSISTENCE # IN_MEMORY apaga tudo ao parar o container
+    ports:
+      - "8080:80"
+    volumes:
+      - s3-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/80' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  # ── Backend NestJS (substitui a EC2) ──────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: candi-backend
+    depends_on:
+      dynamodb:
+        condition: service_healthy
+      s3:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development # cookies sem "secure" (HTTP local)
+      # Credenciais fictícias: os emuladores aceitam qualquer valor
+      AWS_REGION: us-east-1
+      AWS_S3_REGION: us-east-2
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+      # Endpoints locais (rede interna do docker)
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      S3_ENDPOINT: http://s3:80
+      # Endereço usado nas URLs de imagens salvas no banco (precisa ser acessível pelo app)
+      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-http://localhost:8080}
+      DYNAMO_TABLE_PROFILE: CANDIProfile
+      AWS_S3_BUCKET_PROFILE: awscandi-image-uploads
+      AWS_S3_BUCKET_FILE: awscandi-file-uploads
+      # Segredos / integrações externas
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET:-candi_local_access_secret}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET:-candi_local_refresh_secret}
+      COOKIE_SECRET: ${COOKIE_SECRET:-candi_local_cookie_secret}
+      ADMIN_SECRET: ${ADMIN_SECRET:-candi_admin_2026}
+      APP_URL: ${APP_URL:-http://localhost:8081}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+    restart: unless-stopped
+
+  # ── API de IA / Gemini (substitui a AWS Lambda + Function URL) ────────────
+  ia-api:
+    build: ./ia-api
+    container_name: candi-ia-api
+    depends_on:
+      dynamodb:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
+    environment:
+      AWS_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+      # boto3 usa este endpoint automaticamente para o DynamoDB (sem mudar o main.py)
+      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
+      # O Gemini continua sendo chamado pela internet
+      CHAVE_API: ${CHAVE_API:-}
+      ANONYMIZATION_SALT: ${ANONYMIZATION_SALT:-candi_local_salt}
+    restart: unless-stopped
+
+volumes:
+  dynamodb-data:
+  s3-data:

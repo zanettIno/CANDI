@@ -1,0 +1,18 @@
+{
+  "name": "candi-monorepo",
+  "private": true,
+  "description": "CANDI — app mobile, backend e API de IA rodando localmente com Docker",
+  "scripts": {
+    "up": "docker compose up -d --build",
+    "down": "docker compose down",
+    "logs": "docker compose logs -f backend ia-api",
+    "status": "docker compose ps",
+    "reset": "docker compose down -v",
+    "seed:admin": "docker compose exec backend node dist/admin/seed-admin.js",
+    "mobile:install": "npm --prefix mobile install",
+    "mobile": "npm --prefix mobile start",
+    "mobile:web": "npm --prefix mobile run web",
+    "mobile:android": "npm --prefix mobile run android",
+    "android:portas": "adb reverse tcp:3000 tcp:3000 && adb reverse tcp:8001 tcp:8001 && adb reverse tcp:8080 tcp:8080"
+  }
+}

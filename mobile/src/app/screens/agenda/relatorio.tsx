@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppTheme } from '../../../theme';
-import { API_BASE_URL } from '../../../constants/api';
+import { API_BASE_URL, IA_API_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import { useScrollToTopOnFocus } from '@/hooks/useScrollToTopOnFocus';
 
@@ -53,7 +53,7 @@ export default function Relatorio() {
     setAnalysis(null); // Limpa o relatório anterior
     
     try {
-      const res = await fetch('https://o4qybt43vyqsb6p3uvebkczjqq0rsufl.lambda-url.us-east-1.on.aws/', {
+      const res = await fetch(`${IA_API_URL}/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid: userUid }),

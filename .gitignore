@@ -1,0 +1,13 @@
+# Segredos locais (use os arquivos .env.example como modelo)
+.env
+.env.local
+
+# Dependências e builds
+node_modules/
+dist/
+
+# SO / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoBootstrapService } from './dynamo-bootstrap.service';
+import { localDynamoClientOptions } from '../aws/aws-local.config';
 
 @Module({
   providers: [
@@ -16,6 +17,8 @@ import { DynamoBootstrapService } from './dynamo-bootstrap.service';
             accessKeyId: config.get<string>('AWS_ACCESS_KEY_ID')!,
             secretAccessKey: config.get<string>('AWS_SECRET_ACCESS_KEY')!,
           },
+          // DynamoDB Local (docker-compose) quando DYNAMODB_ENDPOINT estiver definido
+          ...localDynamoClientOptions(),
         }),
     },
     {

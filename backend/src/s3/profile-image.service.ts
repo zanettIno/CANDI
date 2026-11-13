@@ -3,6 +3,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { S3Provider } from './s3.provider';
 import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
+import { s3ObjectUrl } from '../aws/aws-local.config';
 
 @Injectable()
 export class ProfileImageService {
@@ -30,7 +31,7 @@ export class ProfileImageService {
     );
 
     return {
-      url: `https://${this.bucketName}.s3.${process.env.AWS_S3_REGION || process.env.AWS_REGION}.amazonaws.com/${key}`,
+      url: s3ObjectUrl(this.bucketName, key, process.env.AWS_S3_REGION || process.env.AWS_REGION),
     };
   }
 

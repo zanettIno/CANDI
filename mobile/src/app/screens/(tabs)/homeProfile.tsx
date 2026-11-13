@@ -12,11 +12,11 @@ import { AppTheme } from '../../../theme';
 import ProfilePictureModal from '../../../components/Modals/ProfilePictureModal';
 import { cancerTypes } from '../../../components/Inputs/inputTypeCancer';
 import { useProfile } from '@/context/ProfileContext';
-import { API_BASE_URL } from '../../../constants/api';
+import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '../../../constants/api';
 import ActionSheet from '@/components/ActionSheet';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 
 interface UserProfile {
   profile_id: string;

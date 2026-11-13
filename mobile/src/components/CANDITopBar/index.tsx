@@ -5,8 +5,9 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppTheme } from '../../theme';
 import { useProfile } from '../../context/ProfileContext';
+import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
 
-const S3 = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3 = S3_PROFILE_IMAGES_URL;
 
 interface Props {
   onAvatarPress?: () => void;

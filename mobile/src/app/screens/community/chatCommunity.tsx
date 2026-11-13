@@ -17,6 +17,7 @@ import { useChat } from '@/context/ChatContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 import { formatTime } from '@/utils/dateFormat';
+import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
 
 interface ChatMessage {
   conversation_id: string;
@@ -27,7 +28,7 @@ interface ChatMessage {
 }
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 const profilePicUri = (id?: string | null) => id ? `${S3_BASE}/${id}.jpg` : undefined;
 
 const decodeJwtId = async (): Promise<string | null> => {

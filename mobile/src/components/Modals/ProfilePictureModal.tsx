@@ -7,10 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppTheme } from '../../theme';
-import { API_BASE_URL } from '../../constants/api';
+import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 
 interface Props {
   visible: boolean;

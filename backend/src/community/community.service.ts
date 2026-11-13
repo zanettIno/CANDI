@@ -20,6 +20,7 @@ import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
 import { CreateGroupDto } from './dto/community.dto';
 import { S3Provider } from '../s3/s3.provider';
+import { s3ObjectUrl } from '../aws/aws-local.config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import sharp = require('sharp');
 
@@ -707,7 +708,7 @@ export class CommunityService {
     }));
 
     const region = process.env.AWS_S3_REGION || process.env.AWS_REGION;
-    const imageUrl = `https://${this.bucketName}.s3.${region}.amazonaws.com/${cleanKey}?v=${Date.now()}`;
+    const imageUrl = `${s3ObjectUrl(this.bucketName, cleanKey, region)}?v=${Date.now()}`;
     const field = type === 'photo' ? 'photo_url' : 'banner_url';
 
     await this.db.send(new UpdateCommand({

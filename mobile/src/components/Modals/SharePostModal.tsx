@@ -6,7 +6,8 @@ import {
 import { AppTheme } from '@/theme';
 import Avatar from '@/components/Avatar';
 
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 const profilePicUri = (id?: string | null) => id ? `${S3_BASE}/${id}.jpg` : undefined;
 import { getInbox } from '@/services/chatService';
 import { sharePostToChat, getMyGroups } from '@/services/communityService';

@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppTheme } from '@/theme';
 import Avatar from '@/components/Avatar';
+import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
 
-const S3_BASE = 'https://awscandi-image-uploads.s3.us-east-2.amazonaws.com/profile-images';
+const S3_BASE = S3_PROFILE_IMAGES_URL;
 
 interface MessageCardProps {
   userName: string;
