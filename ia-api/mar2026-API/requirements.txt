@@ -1,0 +1,6 @@
+boto3==1.35.9
+botocore==1.35.9
+google-auth==2.49.1
+google-genai==1.68.0
+python-dateutil==2.9.0.post0
+python-dotenv==1.1.1
