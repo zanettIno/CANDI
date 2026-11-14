@@ -14,12 +14,12 @@ const TABLES: CreateTableCommandInput[] = [
     KeySchema: [{ AttributeName: 'profile_id', KeyType: 'HASH' }],
     AttributeDefinitions: [
       { AttributeName: 'profile_id', AttributeType: 'S' },
-      { AttributeName: 'email', AttributeType: 'S' },
+      { AttributeName: 'profile_email', AttributeType: 'S' },
     ],
     GlobalSecondaryIndexes: [
       {
         IndexName: 'EmailIndex',
-        KeySchema: [{ AttributeName: 'email', KeyType: 'HASH' }],
+        KeySchema: [{ AttributeName: 'profile_email', KeyType: 'HASH' }],
         Projection: { ProjectionType: 'ALL' },
       },
     ],
