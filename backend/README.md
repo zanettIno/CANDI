@@ -96,7 +96,7 @@ O `DynamoBootstrapService` roda no `onModuleInit` e cria automaticamente as tabe
 | **CANDIReports** | `post_id` | `reporter_id` | — | Denúncias de posts (1 por usuário por post) |
 | **CANDIInvites** | `invite_token` | — | `ByPatientGSI` (patient_id) | Convites da rede de apoio (TTL: 7 dias) |
 | **CANDISupportLinks** | `patient_id` | `support_id` | `BySupportGSI` (support_id) | Vínculo paciente ↔ suporte |
-| **CANDIPosts** | `profile_id` | `post_id` | `AllPostsGSI` (feed_partition), `ByTopicGSI`, `BySubgroupGSI` | Posts do feed global e grupos |
+| **CANDIPosts** | `post_id` | — | `AllPostsGSI` (feed_partition), `ByTopicGSI`, `BySubgroupGSI` | Posts do feed global e grupos |
 | **CANDIGroups** | `group_id` | — | `ByTopicGSI` (topic, created_at) | Grupos/Comunidades |
 | **CANDIGroupMembers** | `group_id` | `profile_id` | `ByProfileGSI` (profile_id, joined_at) | Membros de grupos |
 | **CANDIPostLikes** | `post_id` | `profile_id` | `ByProfileGSI` (profile_id, liked_at) | Curtidas de posts |

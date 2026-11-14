@@ -249,8 +249,8 @@ export default function AdminPanel() {
                     {(p.profile_name || 'U').substring(0, 2).toUpperCase()}
                   </Text>
                 </View>
-                <View>
-                  <Text style={s.postAuthorName}>{p.profile_name || 'Usuário'}</Text>
+                <View style={s.postAuthorText}>
+                  <Text style={s.postAuthorName} numberOfLines={1}>{p.profile_name || 'Usuário'}</Text>
                   <Text style={s.postTime}>
                     {p.created_at ? new Date(p.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''}
                   </Text>
@@ -551,7 +551,9 @@ const s = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     padding: 12, paddingBottom: 8,
   },
-  postAuthorWrap: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  // flex/minWidth: nomes longos encolhem (com reticências) sem empurrar o selo de denúncias para fora
+  postAuthorWrap: { flexDirection: 'row', alignItems: 'center', gap: 10, flex: 1, minWidth: 0, marginRight: 8 },
+  postAuthorText: { flex: 1, minWidth: 0 },
   postAvatar: {
     width: 38, height: 38, borderRadius: 19,
     backgroundColor: AppTheme.colors.secondary,

@@ -119,11 +119,10 @@ const TABLES: CreateTableCommandInput[] = [
   {
     TableName: 'CANDIPosts',
     KeySchema: [
-      { AttributeName: 'profile_id', KeyType: 'HASH' },
-      { AttributeName: 'post_id', KeyType: 'RANGE' },
+      // O código (feed, comunidade, admin) acessa o post só pelo post_id
+      { AttributeName: 'post_id', KeyType: 'HASH' },
     ],
     AttributeDefinitions: [
-      { AttributeName: 'profile_id', AttributeType: 'S' },
       { AttributeName: 'post_id', AttributeType: 'S' },
       { AttributeName: 'topic', AttributeType: 'S' },
       { AttributeName: 'created_at', AttributeType: 'S' },
