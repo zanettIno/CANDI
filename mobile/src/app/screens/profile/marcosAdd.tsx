@@ -60,7 +60,7 @@ export default function MarcosAdd() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <View style={s.screen}>
         <View style={s.header}>
           <View style={s.headerBg}><LoginSignupBackground /></View>

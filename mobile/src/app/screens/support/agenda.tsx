@@ -75,7 +75,7 @@ export default function SupportAgenda() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <CANDITopBar patientId={patientId} patientName={patientName} />
 
       <View style={s.header}>

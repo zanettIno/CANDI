@@ -71,7 +71,7 @@ export default function CompromissosAdd() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <View style={s.screen}>
         <View style={[s.header, { paddingTop: STATUS_TOP + 8 }]}>
           <View style={s.headerRow}>

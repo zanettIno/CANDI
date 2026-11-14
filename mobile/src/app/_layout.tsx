@@ -34,8 +34,8 @@ const getCachedRole = async (): Promise<string> => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
     if (!token) return 'patient';
-    const { default: API } = await import('../constants/api');
-    const res = await fetch(`${(API as any).API_BASE_URL}/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
+    const { API_BASE_URL } = await import('../constants/api');
+    const res = await fetch(`${API_BASE_URL}/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
     if (!res.ok) return 'patient';
     const profile = await res.json();
     const role = profile.role || 'patient';

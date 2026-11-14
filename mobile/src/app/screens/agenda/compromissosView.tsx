@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import AppointmentCard from '../../../components/Card/AppointmentCard';
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from "expo-router/react-navigation";
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -39,7 +39,7 @@ export default function CompromissosView() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <View style={[s.header, { paddingTop: STATUS_TOP }]}>
         <View style={s.headerRow}>
           <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace('/screens/(tabs)/homeAgenda' as any)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>

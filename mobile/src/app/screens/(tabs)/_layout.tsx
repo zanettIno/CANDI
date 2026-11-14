@@ -64,7 +64,7 @@ export default function RootLayout() {
               <MaterialIcons
                 name={focused ? 'people' : 'people-outline'}
                 size={TAB_ICON_SIZE}
-                color={color}
+                color={color as string}
               />
             ),
             tabBarStyle: styles.tabBar,
@@ -75,7 +75,7 @@ export default function RootLayout() {
           options={{
             title: 'Agenda',
             tabBarIcon: ({ color }) => (
-              <MaterialIcons name="event" size={TAB_ICON_SIZE} color={color} />
+              <MaterialIcons name="event" size={TAB_ICON_SIZE} color={color as string} />
             ),
           }}
         />
@@ -84,7 +84,7 @@ export default function RootLayout() {
           options={{
             title: 'Início',
             tabBarIcon: ({ color }) => (
-              <MaterialIcons name="home" size={TAB_ICON_SIZE + 2} color={color} />
+              <MaterialIcons name="home" size={TAB_ICON_SIZE + 2} color={color as string} />
             ),
           }}
         />
@@ -93,7 +93,7 @@ export default function RootLayout() {
           options={{
             title: 'Diário',
             tabBarIcon: ({ color }) => (
-              <MaterialIcons name="book" size={TAB_ICON_SIZE} color={color} />
+              <MaterialIcons name="book" size={TAB_ICON_SIZE} color={color as string} />
             ),
           }}
         />
@@ -105,7 +105,7 @@ export default function RootLayout() {
               <MaterialIcons
                 name={focused ? 'person' : 'person-outline'}
                 size={TAB_ICON_SIZE}
-                color={color}
+                color={color as string}
               />
             ),
           }}
@@ -123,7 +123,7 @@ export default function RootLayout() {
             options={{
               title: 'Admin',
               tabBarIcon: ({ color }) => (
-                <MaterialIcons name="shield" size={TAB_ICON_SIZE} color={color} />
+                <MaterialIcons name="shield" size={TAB_ICON_SIZE} color={color as string} />
               ),
               tabBarActiveTintColor: '#ef4444',
             }}

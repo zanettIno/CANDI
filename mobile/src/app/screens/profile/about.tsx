@@ -23,7 +23,7 @@ export default function About() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
 
       {/* Header sólido — sem ondas, logo legível */}
       <View style={[s.header, { paddingTop: STATUS_TOP }]}>

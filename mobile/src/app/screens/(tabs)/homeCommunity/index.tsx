@@ -381,12 +381,12 @@ export default function CommunityScreen() {
         ) : feedError ? (
           <EmptyState icon="wifi-off" title="Erro" subtitle={feedError}
             actionLabel="Tentar novamente" onAction={() => fetchPosts(activeHashtag || undefined)} />
-        ) : null}
+        ) : undefined}
         ListEmptyComponent={!feedError ? (
           <EmptyState icon="article"
             title={activeHashtag ? `Nenhum post com ${activeHashtag}` : 'Nenhuma postagem ainda'}
             subtitle={activeHashtag ? 'Tente outra hashtag.' : 'Seja o primeiro a compartilhar algo!'} />
-        ) : null}
+        ) : undefined}
       />
     );
   };

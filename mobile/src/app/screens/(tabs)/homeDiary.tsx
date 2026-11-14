@@ -159,7 +159,7 @@ export default function DiaryScreen() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <CANDITopBar />
 
       {/* Header rosa sólido */}
@@ -381,7 +381,7 @@ const s = StyleSheet.create({
     fontFamily: AppTheme.fonts.labelSmall.fontFamily, textTransform: 'capitalize',
   },
 
-  content: { padding: 16 },
+  content: { padding: 16, paddingBottom: 96 }, // espaço para o botão flutuante não cobrir o último item
 
   // ── Card hoje ─────────────────────────────────────────────────────────
   todayCard: {

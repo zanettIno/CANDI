@@ -30,7 +30,8 @@ const HeaderTitle = styled(Text)`
   font-size: ${AppTheme.fonts.titleLarge.fontSize}px;
   font-weight: bold;
   color: ${AppTheme.colors.cardBackground};
-  margin-left: -30px; 
+  margin-left: 36px; /* espaço do botão voltar (posição absoluta) */
+  margin-right: 36px;
 `;
 
 const ContentCard = styled(View)`
@@ -109,7 +110,7 @@ export default function ContatosView() {
               }
             }} 
           />
-          <HeaderTitle>Contatos de Confiança</HeaderTitle>
+          <HeaderTitle numberOfLines={1} adjustsFontSizeToFit>Contatos de Confiança</HeaderTitle>
         </Header>
 
         <ContentCard>

@@ -93,7 +93,7 @@ export default function CadastroSupport() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
 
       {/* Header */}
       <View style={s.header}>

@@ -77,7 +77,7 @@ export default function InviteScreen() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <CANDITopBar />
 
       <View style={s.header}>

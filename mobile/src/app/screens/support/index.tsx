@@ -41,7 +41,7 @@ export default function SupportHome() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
 
       {/* TopBar com avatar do paciente */}
       <CANDITopBar patientId={pid} patientName={pName} />

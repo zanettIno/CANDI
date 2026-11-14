@@ -72,7 +72,7 @@ export default function PassagemRead() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
 
       <View style={[s.header, { paddingTop: STATUS_TOP + 8 }]}>
         <TouchableOpacity

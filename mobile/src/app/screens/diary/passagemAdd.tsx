@@ -71,7 +71,7 @@ export default function PassagemAdd() {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <View style={s.screen}>
 
         <View style={[s.header, { paddingTop: STATUS_TOP + 8 }]}>

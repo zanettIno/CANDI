@@ -8,7 +8,7 @@ import { API_BASE_URL } from '../../../constants/api';
 import MedicineCard from '../../../components/Card/MedicineCard';
 import ActionSheet from '@/components/ActionSheet';
 import { useToast } from '@/context/NotificationContext';
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from "expo-router/react-navigation";
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -60,7 +60,7 @@ export default function MedicamentosView() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <View style={[s.header, { paddingTop: STATUS_TOP }]}>
         <View style={s.headerRow}>
           <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace('/screens/(tabs)/homeAgenda' as any)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>

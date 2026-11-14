@@ -71,7 +71,7 @@ export default function Index() {
   return (
     <PaperProvider theme={AppTheme}>
       <View style={[styles.container, { backgroundColor: AppTheme.colors.background }]}>
-        <StatusBar barStyle="light-content" backgroundColor={AppTheme.colors.primary} />
+        <StatusBar barStyle="light-content" />
         <LoginSignupBackground>
           <View style={styles.contentWrapper}>
             

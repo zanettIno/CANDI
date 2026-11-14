@@ -73,7 +73,7 @@ export default function SupportDiaryEntry() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
 
       {/* Header */}
       <View style={[s.header, { paddingTop: insets.top + 10 }]}>

@@ -3,7 +3,8 @@ import { Platform } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
   }),
@@ -43,7 +44,10 @@ export async function scheduleAppointmentNotification(
         body: name,
         sound: 'default',
       },
-      trigger,
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
+        date: trigger,
+      },
     });
   } catch { return null; }
 }

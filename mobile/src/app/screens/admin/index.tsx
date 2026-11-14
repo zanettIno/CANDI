@@ -401,7 +401,7 @@ export default function AdminPanel() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <CANDITopBar />
 
       {/* Sub-header com título e badge */}

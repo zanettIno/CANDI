@@ -696,7 +696,7 @@ export default function GroupCommunity() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       {/* Fundo: banner do grupo ou gradiente padrão */}
       <View style={s.headerBg}>
         {group?.banner_url ? (

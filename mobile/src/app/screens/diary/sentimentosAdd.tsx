@@ -100,7 +100,7 @@ export default function SentimentosAdd() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
 
       <View style={[s.header, { paddingTop: STATUS_TOP }]}>
         <View style={s.headerRow}>
@@ -286,9 +286,10 @@ const s = StyleSheet.create({
     fontSize: 16, fontWeight: '700', color: AppTheme.colors.nameText,
     fontFamily: AppTheme.fonts.titleMedium.fontFamily,
   },
-  moodRow: { flexDirection: 'row', gap: 8 },
+  // Os 5 botões dividem a largura disponível (no máximo 52px cada) para caber em telas de 320px
+  moodRow: { flexDirection: 'row', gap: 8, alignSelf: 'stretch', justifyContent: 'center' },
   moodBtn: {
-    width: 52, height: 52, borderRadius: 14,
+    flex: 1, maxWidth: 52, aspectRatio: 1, borderRadius: 14,
     alignItems: 'center', justifyContent: 'center',
     backgroundColor: '#F5F0E8',
     borderWidth: 1, borderColor: '#E0D8C8',

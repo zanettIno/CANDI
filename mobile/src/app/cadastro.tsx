@@ -168,7 +168,6 @@ export default function Cadastro() {
       >
         <StatusBar
           barStyle="light-content"
-          backgroundColor={AppTheme.colors.primary}
         />
         <ScrollView
           contentContainerStyle={styles.scrollContent}

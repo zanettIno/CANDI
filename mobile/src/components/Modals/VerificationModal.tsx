@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  NativeSyntheticEvent,
-  TextInputKeyPressEventData,
+  type TextInputInstance,
+  type TextInputKeyPressEvent,
 } from "react-native";
 import { Modal, Portal, Button } from "react-native-paper";
 import { AppTheme } from "../../theme"; 
@@ -33,7 +33,7 @@ const VerificationModal: React.FC<VerificationModalProps> = ({
   const OTP_LENGTH = 6;
   const [code, setCode] = useState<string[]>(Array(OTP_LENGTH).fill(""));
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const inputsRef = useRef<Array<TextInput | null>>([]);
+  const inputsRef = useRef<Array<TextInputInstance | null>>([]);
   const [countdown, setCountdown] = useState(30);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
 
@@ -101,7 +101,7 @@ const VerificationModal: React.FC<VerificationModalProps> = ({
     }
   };
   
-  const handleKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>, index: number) => {
+  const handleKeyPress = (e: TextInputKeyPressEvent, index: number) => {
     if (e.nativeEvent.key === "Backspace" && !code[index] && index > 0) {
       inputsRef.current[index - 1]?.focus();
     }

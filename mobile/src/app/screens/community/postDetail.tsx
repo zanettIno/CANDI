@@ -42,7 +42,7 @@ export default function PostDetail() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <View style={s.headerBg}><LoginSignupBackground /></View>
       <View style={[s.header, { paddingTop: STATUS_BAR_HEIGHT }]}>
         <BackIconButton color={AppTheme.colors.cardBackground} onPress={() => router.back()} top={0} />

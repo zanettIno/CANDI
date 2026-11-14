@@ -133,7 +133,7 @@ export default function MessagesScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="dark-content" />
 
       {/* Header fixo com safe area manual */}
       <View style={[styles.header, { paddingTop: STATUS_BAR_HEIGHT + 12 }]}>

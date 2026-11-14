@@ -104,7 +104,7 @@ export default function Settings() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <View style={s.screen}>
         {/* Header */}
         <View style={[s.header, { paddingTop: STATUS_TOP }]}>

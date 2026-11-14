@@ -40,9 +40,9 @@ O CANDI Mobile é um aplicativo React Native com Expo voltado para pacientes com
 
 | Tecnologia | Versão | Uso |
 |---|---|---|
-| React Native | 0.81 | Framework mobile |
-| Expo | 54 | Build, EAS, plugins nativos |
-| Expo Router | 4.x | Navegação file-based (tabs + stack) |
+| React Native | 0.88 | Framework mobile |
+| Expo | 58 | Build, EAS, plugins nativos |
+| Expo Router | 58.x | Navegação file-based (tabs + stack) |
 | TypeScript | 5.x | Tipagem estática |
 | TanStack Query | 5.x | Cache e fetching de dados |
 | React Native Paper | 5.x | Componentes Material Design |
@@ -50,7 +50,7 @@ O CANDI Mobile é um aplicativo React Native com Expo voltado para pacientes com
 | @expo-google-fonts/inter | — | Fonte Inter (corpo) |
 | react-native-calendars | — | Calendário com multi-dot marking |
 | react-native-safe-area-context | — | Insets de SafeArea |
-| @react-navigation/native | — | `useScrollToTop`, primitivos de navegação |
+| expo-router/react-navigation | — | `useScrollToTop` (antes vinha de `@react-navigation/native`) |
 | AsyncStorage | — | Persistência local de tokens, cache de role |
 | Socket.IO Client | — | WebSocket em tempo real |
 | react-native-paper-dates | — | Date picker |
@@ -897,7 +897,7 @@ Preencher o vazio na documentação diária e particular sobre o câncer, fornec
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **React Native 0.81 + Expo 54**: Framework mobile cross-platform
+- **React Native 0.88 + Expo SDK 58**: Framework mobile cross-platform
 - **Expo Router 4**: Navegação file-based com suporte a deep linking
 - **TypeScript**: Tipagem estática em todo o projeto
 - **TanStack Query**: Cache e sincronização de dados com o servidor

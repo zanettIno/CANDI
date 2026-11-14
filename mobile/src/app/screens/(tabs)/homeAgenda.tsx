@@ -10,7 +10,7 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import CCalendar from '@/components/Calendar';
 import CANDITopBar from '../../../components/CANDITopBar';
-import { useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from "expo-router/react-navigation";
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -118,7 +118,7 @@ export default function HomeAgenda() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
       <CANDITopBar />
 
       {/* Header */}
@@ -304,7 +304,7 @@ const s = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center',
   },
 
-  content: { padding: 16, gap: 12 },
+  content: { padding: 16, paddingBottom: 96, gap: 12 }, // espaço para o botão flutuante
 
   calendarCard: {
     backgroundColor: AppTheme.colors.background,

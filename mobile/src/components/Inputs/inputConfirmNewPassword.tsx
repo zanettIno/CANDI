@@ -3,6 +3,7 @@ import { TextInput, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppTheme } from '@/theme';
+import { fieldMarginX, fieldFontSize } from '../../theme/responsive';
 
 interface InputConfirmNewPasswordProps {
   value: string;
@@ -14,14 +15,14 @@ interface InputConfirmNewPasswordProps {
 const Container = styled(View)`
   position: relative;
   margin-bottom: 16px;
-  margin: 16px;
+  margin: 16px ${fieldMarginX}px;
 `;
 
 const StyledTextInput = styled(TextInput)<{ isValid?: boolean }>`
   background-color: ${AppTheme.colors.formFieldColor};
   border-radius: 50px;
   padding: 16px 50px 16px 16px;
-  font-size: 20px;
+  font-size: ${fieldFontSize}px;
   color: #545F71;
   border: 1px solid ${props => props.isValid === false ? '#ff6b6b' : 'transparent'};
 `;

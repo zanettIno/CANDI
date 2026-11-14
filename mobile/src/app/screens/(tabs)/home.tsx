@@ -119,7 +119,7 @@ export default function HomeScreen() {
         {/* Header / Saudação */}
         <View style={styles.header}>
           <View style={styles.greetingRow}>
-            <View>
+            <View style={styles.greetingText}>
               <Text style={styles.greeting}>
                 {getGreeting()}{firstName ? `, ${firstName}` : ''}! 👋
               </Text>
@@ -200,6 +200,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 16,
   },
+  // flex: 1 permite que a saudação quebre linha em telas estreitas
+  greetingText: { flex: 1 },
   greeting: {
     fontFamily: AppTheme.fonts.headlineSmall.fontFamily,
     fontSize: AppTheme.fonts.headlineSmall.fontSize,

@@ -147,7 +147,7 @@ export const GroupView: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="dark-content" />
 
       {/* Header */}
       <View style={[styles.header, { paddingTop: STATUS_BAR_HEIGHT + 12 }]}>

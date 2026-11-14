@@ -89,7 +89,7 @@ export default function MarcosView() {
 
   return (
     <View style={s.screen}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
 
       <View style={[s.header, { paddingTop: STATUS_TOP }]}>
         <View style={s.headerRow}>

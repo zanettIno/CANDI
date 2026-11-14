@@ -319,7 +319,7 @@ export const ChatCommunity: React.FC = () => {
       style={styles.screen}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" />
 
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <TouchableOpacity onPress={() => router.back()} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
@@ -351,7 +351,7 @@ export const ChatCommunity: React.FC = () => {
                   </View>
                 </View>
               </View>
-            ) : null
+            ) : undefined
           }
           ListEmptyComponent={
             <View style={styles.emptyChat}>

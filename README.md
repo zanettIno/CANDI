@@ -29,7 +29,7 @@ containers locais, para que o sistema inteiro possa ser apresentado sem depender
 
 ```
 CANDI/
-├── mobile/              # antigo CANDI-mobile (pasta candi-app) — React Native + Expo 54
+├── mobile/              # antigo CANDI-mobile (pasta candi-app) — React Native 0.88 + Expo SDK 58
 ├── backend/             # antigo CANDI-backend-API — NestJS 11 + Fastify
 │   └── Dockerfile
 ├── ia-api/              # antigo CANDI-ia-API — Lambda Python com Gemini
@@ -46,7 +46,7 @@ O histórico de commits dos três repositórios originais foi preservado (`git l
 ## Pré-requisitos
 
 - **Docker Desktop** (Windows/macOS) ou Docker Engine + Compose (Linux)
-- **Node.js 20+** (recomendado 22) — para rodar o app com Expo
+- **Node.js 22.13+ ou 24.3+** — exigido pelo Expo SDK 58 (confira com `node -v`)
 - **Android Studio** com um emulador criado (ou use o navegador com `npm run mobile:web`)
 - Uma **chave do Google Gemini** (https://aistudio.google.com/apikey) para o Relatório de Saúde
 
@@ -103,6 +103,15 @@ npm run mobile:install           # primeira vez (equivale a: cd mobile && npm in
 pelo IP do computador (ex.: `192.168.0.10`), faça o mesmo em `S3_PUBLIC_URL` no `.env` da raiz,
 rode `docker compose up -d` de novo e inicie o Expo com `npx expo start -c`.
 
+**Expo Go:** o app usa o **Expo SDK 58**, então o celular precisa do Expo Go para o SDK 58
+(a versão da loja ou, no Android, o APK em https://expo.dev/go). Como o projeto também tem
+`expo-dev-client`, o terminal abre em modo *development build*: aperte `s` para trocar para o Expo Go
+antes de ler o QR code.
+
+> Os arquivos `mobile/.env.development` e `mobile/.env.production` definem `EXPO_PUBLIC_USE_RN_FETCH=1`.
+> Não apague: a partir do SDK 56 o Expo troca o `fetch` padrão por um que não aceita fotos enviadas
+> no formato `{ uri, name, type }`, que é o que o app usa no upload de imagens.
+
 ## Endereços
 
 | Serviço | URL no computador | Observação |
@@ -151,6 +160,31 @@ Somente configuração de endereços — a lógica de negócio é a mesma:
 - **mobile/**
   - `src/constants/api.ts`: centraliza `API_BASE_URL`, `IA_API_URL` e a URL das fotos de perfil (configuráveis por `EXPO_PUBLIC_*`).
   - `relatorio.tsx` deixou de usar a URL fixa da Lambda; 9 telas/componentes deixaram de usar a URL fixa do bucket S3.
+
+### Atualização do app para o Expo SDK 58
+
+O app saiu do SDK 54 (React Native 0.81) para o **SDK 58 (React Native 0.88, React 19.3)**,
+passando pelas versões 55, 56 e 57:
+
+- **Dependências** atualizadas para as versões indicadas pelo SDK 58; `react-native-paper-dates`,
+  `react-native-paper`, `react-native-calendars` e `@expo/vector-icons` na versão mais recente.
+- **Removidas por não serem usadas no código** (e algumas quebrariam no SDK novo): `@notifee/react-native`,
+  `@gorhom/bottom-sheet`, `@react-oauth/google`, `axios`, `date-fns`, `eas-cli`,
+  `@react-native-community/cli-server-api`, `@react-navigation/native` e o kit de testes (`jest`,
+  `jest-expo`, `react-test-renderer`) — não havia nenhum teste no projeto.
+- **`buffer`** virou dependência explícita (o chat usa e antes vinha "de carona" de outra biblioteca).
+- **Carrossel da Home** migrado para `react-native-reanimated-carousel` v5 (mesmo visual: parallax, loop).
+- **Código ajustado às APIs novas**: `useScrollToTop` agora vem de `expo-router/react-navigation`;
+  props removidas do `StatusBar` (`translucent`, `backgroundColor`) retiradas das telas; tipos de `ref`
+  de `ScrollView`/`TextInput`; lembretes de compromisso usam o formato atual de gatilho do `expo-notifications`.
+- `app.json` sem `newArchEnabled`/`edgeToEdgeEnabled` (hoje são obrigatórios e a opção não existe mais).
+
+### Responsividade (celulares de 320 a 430 px)
+
+Todas as telas foram renderizadas em 320, 375 e 430 px e corrigidas onde algo vazava ou cortava:
+saudação da Home (quebra de linha), seletor de humor em Sentimentos, cabeçalho de Contatos de Confiança,
+campos de formulário em telas estreitas (`src/theme/responsive.ts`), espaço no fim das listas com botão
+flutuante e o carrossel, que agora acompanha o tamanho da tela.
 
 ## Solução de problemas
 

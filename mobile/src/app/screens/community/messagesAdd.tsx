@@ -53,7 +53,7 @@ export const NewConversationScreen: React.FC = () => {
 
   return (
     <ScreenContainer>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="dark-content" />
 
       <HomeBackground />
 

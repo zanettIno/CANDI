@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { View, Dimensions, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+import { View, StyleSheet, Text, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
+import { Carousel } from 'react-native-reanimated-carousel';
 import { AppTheme } from '../../theme';
 
-const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
-const itemWidth = screenWidth * 0.8;
-const itemHeight = itemWidth * 0.6;
 
 export type CarouselItem = {
   title: string;
@@ -18,10 +15,14 @@ type Props = {
 };
 
 const CarouselComponent: React.FC<Props> = ({ data, onItemPress }) => {
+  // Recalcula ao girar a tela / redimensionar (antes era fixo no carregamento do módulo)
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  const itemWidth = screenWidth * 0.8;
+  const itemHeight = itemWidth * 0.6;
 
   const renderItem = ({ item }: { item: CarouselItem }) => (
     <TouchableOpacity onPress={() => onItemPress?.(item)}>
-      <View style={styles.itemContainer}>
+      <View style={[styles.itemContainer, { width: itemWidth, height: itemHeight }]}>
         {item.image ? (
           <Image
             source={typeof item.image === 'string' ? { uri: item.image } : item.image}
@@ -39,15 +40,14 @@ const CarouselComponent: React.FC<Props> = ({ data, onItemPress }) => {
   return (
     <Carousel
       loop
-      width={screenWidth}
-      height={screenHeight * 0.25}
-      autoPlay={false}
+      style={{ width: screenWidth, height: screenHeight * 0.25 }}
+      autoplay={false}
       data={data}
-      scrollAnimationDuration={500}
-      mode="parallax"
-      modeConfig={{
-        parallaxScrollingScale: 0.9,
-        parallaxAdjacentItemScale: 0.8,
+      animation={{ type: 'timing', duration: 500 }}
+      layout={{
+        type: 'parallax',
+        scale: 0.9,
+        adjacentScale: 0.8,
       }}
       renderItem={renderItem}
     />
@@ -56,8 +56,6 @@ const CarouselComponent: React.FC<Props> = ({ data, onItemPress }) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    width: itemWidth,
-    height: itemHeight,
     borderRadius: AppTheme.roundness,
     overflow: 'hidden',
   },

@@ -89,7 +89,7 @@ export default function HomeProfile() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
+      <StatusBar barStyle="light-content" />
       <ScrollView style={s.screen} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
 
         {/* ── Hero ─────────────────────────────────────────────────────────── */}
