@@ -161,6 +161,16 @@ Somente configuração de endereços — a lógica de negócio é a mesma:
   - `src/constants/api.ts`: centraliza `API_BASE_URL`, `IA_API_URL` e a URL das fotos de perfil (configuráveis por `EXPO_PUBLIC_*`).
   - `relatorio.tsx` deixou de usar a URL fixa da Lambda; 9 telas/componentes deixaram de usar a URL fixa do bucket S3.
 
+### Correções no banco de dados (backend)
+
+Ao criar as tabelas do zero no DynamoDB Local, apareceram duas definições do `DynamoBootstrapService`
+que não batiam com o código (na AWS as tabelas já existiam, por isso o erro não aparecia):
+
+- **`CANDIProfile` → `EmailIndex`** agora usa `profile_email` (o código busca por esse campo).
+  Antes, registrar e listar **sentimentos** dava "Internal server error".
+- **`CANDIPosts`** agora tem só `post_id` como chave (é assim que feed, comunidade e admin acessam o post).
+  Antes, **denunciar, curtir, comentar, excluir post** e **aprovar/remover no painel admin** falhavam.
+
 ### Atualização do app para o Expo SDK 58
 
 O app saiu do SDK 54 (React Native 0.81) para o **SDK 58 (React Native 0.88, React 19.3)**,
@@ -196,6 +206,10 @@ flutuante e o carrossel, que agora acompanha o tamanho da tela.
 | Fotos não aparecem | `S3_PUBLIC_URL` (raiz) ou `EXPO_PUBLIC_S3_URL` (mobile) não acessível pelo dispositivo. |
 | Backend subiu sem tabelas | Rode `docker compose restart backend` (as tabelas são criadas na inicialização). |
 | E-mails não chegam | `SMTP_USER`/`SMTP_PASS` vazios ou sem senha de app do Gmail. |
+| Sentimentos, denúncias ou curtidas dão "Internal server error" | Banco criado por uma versão anterior. Rode `docker compose down -v` e `docker compose up -d --build` (apaga os dados de teste). |
+| Celular não abre o app / não conecta (Linux com firewalld) | Libere as portas: `sudo firewall-cmd --add-port={3000,8001,8080,8081}/tcp`. |
+| "Project is incompatible with this version of Expo Go" | Instale o Expo Go do SDK 58 (loja ou https://expo.dev/go) e aperte `s` no terminal do Expo. |
+| Convite da rede de apoio dá erro sem SMTP | O convite é salvo mesmo assim: pegue o `invite_token` em `GET /auth/my-invites` e abra `http://localhost:8081/cadastroSupport?invite=TOKEN`. |
 | Porta já em uso | Altere o lado esquerdo do mapeamento em `docker-compose.yml` (ex.: `"3001:3000"`) e o endereço correspondente em `mobile/.env`. |
 
 ## Equipe
