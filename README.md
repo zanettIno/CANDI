@@ -22,7 +22,7 @@ O repositório é um **monorepo** e reúne as três partes do sistema: o **app m
 ## :busts_in_silhouette: O grupo CANDI é composto por:
 
 <p align="center">
-  <img src="mobile/assets/images/equipe-candi-atualizada.png" alt="Equipe CANDI" width="300" />
+  <img src="mobile/assets/images/equipe-candi-sem-fundo.png" alt="Equipe CANDI" width="300" />
 </p>
 
 - **Carolina Pichelli Souza :violin: (dev front-end; designer; docs)**
