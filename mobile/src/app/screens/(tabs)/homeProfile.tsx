@@ -14,6 +14,7 @@ import { cancerTypes } from '../../../components/Inputs/inputTypeCancer';
 import { useProfile } from '@/context/ProfileContext';
 import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '../../../constants/api';
 import ActionSheet from '@/components/ActionSheet';
+import { disconnectSocket } from '@/services/socketService';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 const S3_BASE = S3_PROFILE_IMAGES_URL;
@@ -56,6 +57,7 @@ export default function HomeProfile() {
   };
 
   const doLogout = async () => {
+    disconnectSocket(); // senão o socket continua autenticado como este usuário no próximo login
     await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userRole']);
     router.replace('/');
   };

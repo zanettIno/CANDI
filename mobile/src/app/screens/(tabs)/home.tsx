@@ -42,10 +42,10 @@ export default function HomeScreen() {
   const [isPosting, setIsPosting] = useState(false);
 
   const carouselData = [
-    { title: 'Equipe CANDI 1', image: require('../../../../assets/images/equipe-candi-1.jpeg') },
-    { title: 'Equipe CANDI 2', image: require('../../../../assets/images/equipe-candi-2.jpeg') },
-    { title: 'Equipe Rede', image: require('../../../../assets/images/equipe-candi-rede.jpeg') },
-    { title: 'Rede Feminina', image: require('../../../../assets/images/site-rede-feminina.jpeg') },
+    { title: 'Equipe CANDI', image: require('../../../../assets/images/equipe-candi-atualizada.png'), url: 'https://www.instagram.com/projeto.candi/', focusY: 0.4 },
+    { title: 'Rede Feminina', image: require('../../../../assets/images/logoLinkSiteRede.png'), url: 'https://www.redefeminina.org.br/', fit: 'contain' as const },
+    { title: 'CANDI 1', image: require('../../../../assets/images/img1.jpg') },
+    { title: 'CANDI 3', image: require('../../../../assets/images/img3.jpg') },
   ];
 
   const handleCallContact = (contact: EmergencyContact) => {

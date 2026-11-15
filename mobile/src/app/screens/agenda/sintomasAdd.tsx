@@ -10,6 +10,8 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import LoginSignupBackground from '../../../components/LoginSignupBackground';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -21,6 +23,7 @@ function todayFormatted() {
 }
 
 export default function SintomasAdd() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
 
@@ -71,7 +74,7 @@ export default function SintomasAdd() {
           </View>
         </View>
 
-        <ScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <KeyboardAwareScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={s.section}>
             <Text style={s.sectionLabel}>Sintoma</Text>
             <View style={s.card}>
@@ -105,13 +108,13 @@ export default function SintomasAdd() {
               {saving ? <ActivityIndicator color="#fff" size="small" /> : <><MaterialIcons name="check" size={18} color="#fff" /><Text style={s.saveBtnText}>Registrar sintoma</Text></>}
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
 
       {showPicker && (
         <View style={s.pickerOverlay}>
           <TouchableOpacity style={{ flex: 1 }} onPress={() => setShowPicker(false)} />
-          <View style={s.pickerSheet}>
+          <View style={[s.pickerSheet, { paddingBottom: insets.bottom }]}>
             <View style={s.pickerHandle} />
             <View style={s.pickerHeader}>
               <Text style={s.pickerTitle}>Sintoma</Text>

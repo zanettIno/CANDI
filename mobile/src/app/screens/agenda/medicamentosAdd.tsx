@@ -11,6 +11,8 @@ import { API_BASE_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import { scheduleMedicineNotification } from '@/services/notifications';
 import LoginSignupBackground from '../../../components/LoginSignupBackground';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -26,6 +28,7 @@ const fieldLabelStyle = { fontSize: 11.5, color: AppTheme.colors.placeholderText
 const FREQUENCIES = ['1x ao dia', '2x ao dia', '3x ao dia', 'A cada 8h', 'A cada 12h', 'Conforme necessário'];
 
 export default function MedicamentosAdd() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
 
@@ -96,7 +99,7 @@ export default function MedicamentosAdd() {
           </View>
         </View>
 
-        <ScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <KeyboardAwareScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={s.section}>
             <Text style={s.sectionLabel}>Medicamento</Text>
             <View style={s.card}>
@@ -174,14 +177,14 @@ export default function MedicamentosAdd() {
               {saving ? <ActivityIndicator color="#fff" size="small" /> : <><MaterialIcons name="check" size={18} color="#fff" /><Text style={s.saveBtnText}>Salvar medicamento</Text></>}
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
 
       {/* Picker de frequência */}
       {showFreqPicker && (
         <View style={s.pickerOverlay}>
           <TouchableOpacity style={{ flex: 1 }} onPress={() => setShowFreqPicker(false)} />
-          <View style={s.pickerSheet}>
+          <View style={[s.pickerSheet, { paddingBottom: insets.bottom }]}>
             <View style={s.pickerHandle} />
             <View style={s.pickerHeader}>
               <Text style={s.pickerTitle}>Frequência</Text>

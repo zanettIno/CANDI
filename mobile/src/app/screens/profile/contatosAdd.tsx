@@ -11,6 +11,7 @@ import BackIconButton from '@/components/BackIconButton';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_BASE_URL } from '@/constants/api'; 
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -32,7 +33,7 @@ const FormContainer = styled(View)`
   padding: 32px 24px 24px 24px;
 `;
 
-const FormScrollView = styled(ScrollView)`
+const FormScrollView = styled(KeyboardAwareScrollView)`
   flex-grow: 1;
 `;
 

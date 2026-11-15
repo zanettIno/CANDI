@@ -11,6 +11,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Avatar from '@/components/Avatar';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardVisible } from '@/hooks/useKeyboardVisible';
 import { getMessages, getReadStatus } from '@/services/chatService';
 import { initializeSocket } from '@/services/socketService';
 import { useChat } from '@/context/ChatContext';
@@ -44,6 +45,7 @@ const decodeJwtId = async (): Promise<string | null> => {
 export const ChatCommunity: React.FC = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const keyboardVisible = useKeyboardVisible();
   const { conversationId, userName, quickReply } = useLocalSearchParams<{
     conversationId: string;
     userName: string;
@@ -317,7 +319,8 @@ export const ChatCommunity: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={styles.screen}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // 'padding' também no Android: com edge-to-edge (SDK 58) a janela não é redimensionada
+      behavior={Platform.OS === 'web' ? undefined : 'padding'}
     >
       <StatusBar barStyle="dark-content" />
 
@@ -363,7 +366,8 @@ export const ChatCommunity: React.FC = () => {
         />
       </View>
 
-      <View style={styles.footer}>
+      {/* Teclado fechado: reserva a área da barra de navegação do Android / home indicator do iOS */}
+      <View style={[styles.footer, { paddingBottom: keyboardVisible ? 0 : insets.bottom }]}>
         <MessageInput
           value={message}
           onChangeText={handleTypingEvent}
@@ -461,7 +465,6 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: AppTheme.colors.cardBackground,
     borderTopWidth: 1, borderTopColor: AppTheme.colors.dotsColor,
-    paddingBottom: Platform.OS === 'ios' ? 4 : 0,
   },
 });
 

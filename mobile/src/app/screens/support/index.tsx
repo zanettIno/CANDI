@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, ScrollView, StatusBar,
+  View, Text, StyleSheet, TouchableOpacity, ScrollView, StatusBar, useWindowDimensions,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { AppTheme } from '@/theme';
 import { useProfile } from '@/context/ProfileContext';
 import CANDITopBar from '@/components/CANDITopBar';
+import { disconnectSocket } from '@/services/socketService';
 
 const PERM_META: Record<string, { icon: string; label: string; color: string; route: string }> = {
   agenda:     { icon: 'event',  label: 'Agenda', color: AppTheme.colors.tertiary, route: 'agenda' },
@@ -21,6 +22,8 @@ const PERM_META: Record<string, { icon: string; label: string; color: string; ro
 
 export default function SupportHome() {
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const isWide = width >= 900;
   const { linkedPatients, selectedPatient, setSelectedPatient, profileName } = useProfile();
 
   const currentPatient = selectedPatient ?? linkedPatients[0] ?? null;
@@ -29,6 +32,7 @@ export default function SupportHome() {
   const pName = currentPatient?.profile_name ?? currentPatient?.patient_name ?? '';
 
   const handleLogout = async () => {
+    disconnectSocket(); // senão o socket continua autenticado como este usuário no próximo login
     await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userRole']);
     router.replace('/');
   };
@@ -113,7 +117,7 @@ export default function SupportHome() {
                 return (
                   <TouchableOpacity
                     key={perm}
-                    style={s.permCard}
+                    style={[s.permCard, isWide && s.permCardWide]}
                     onPress={() => goToSection(perm)}
                     activeOpacity={0.8}
                   >
@@ -181,6 +185,7 @@ const s = StyleSheet.create({
     borderWidth: 1, borderColor: AppTheme.colors.dotsColor,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 2, elevation: 1,
   },
+  permCardWide: { width: '31.5%', paddingVertical: 24 },
   permIcon: { width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center' },
   permLabel: { fontSize: 15, fontWeight: '700', color: AppTheme.colors.nameText, fontFamily: AppTheme.fonts.titleSmall.fontFamily },
   viewOnlyTag: { flexDirection: 'row', alignItems: 'center', gap: 3 },

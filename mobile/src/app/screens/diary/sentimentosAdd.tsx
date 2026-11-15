@@ -10,6 +10,7 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import { useScrollToTopOnFocus } from '@/hooks/useScrollToTopOnFocus';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -115,7 +116,7 @@ export default function SentimentosAdd() {
         <Text style={s.headerSub}>Como você está se sentindo agora?</Text>
       </View>
 
-      <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false} contentContainerStyle={s.content}>
+      <KeyboardAwareScrollView ref={scrollRef} showsVerticalScrollIndicator={false} contentContainerStyle={s.content}>
         <Animated.View style={{ opacity: fadeAnim, gap: 12 }}>
 
           {/* Humor atual */}
@@ -250,7 +251,7 @@ export default function SentimentosAdd() {
 
         </Animated.View>
         <View style={{ height: 40 }} />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

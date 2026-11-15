@@ -36,6 +36,8 @@ import { formatTime, formatRelativeDate } from '@/utils/dateFormat';
 import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useKeyboardVisible } from '@/hooks/useKeyboardVisible';
 
 const STATUS_BAR_HEIGHT = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 const S3_BASE = S3_PROFILE_IMAGES_URL;
@@ -62,6 +64,8 @@ interface ChatMessage {
 const groupConvId = (groupId: string) => `GROUP#${groupId}`;
 
 export default function GroupCommunity() {
+  const insets = useSafeAreaInsets();
+  const keyboardVisible = useKeyboardVisible();
   const router = useRouter();
   const { groupId, groupName } = useLocalSearchParams<{ groupId: string; groupName: string }>();
   const { profileId: myProfileId, profileName: myName } = useProfile();
@@ -630,7 +634,7 @@ export default function GroupCommunity() {
       return <EmptyState icon="chat-bubble-outline" title="Entre no grupo" subtitle="Apenas membros podem usar o chat." />;
     }
     return (
-      <KeyboardAvoidingView style={s.chatContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAvoidingView style={s.chatContainer} behavior={Platform.OS === 'web' ? undefined : 'padding'}>
         {chatLoading ? (
           <View style={s.centered}><ActivityIndicator size="large" color={AppTheme.colors.tertiary} /></View>
         ) : (
@@ -648,12 +652,14 @@ export default function GroupCommunity() {
             }
           />
         )}
-        <MessageInput
-          value={chatText}
-          onChangeText={setChatText}
-          onSend={handleSendChat}
-          placeholder="Mensagem no grupo..."
-        />
+        <View style={{ backgroundColor: AppTheme.colors.cardBackground, paddingBottom: keyboardVisible ? 0 : insets.bottom }}>
+          <MessageInput
+            value={chatText}
+            onChangeText={setChatText}
+            onSend={handleSendChat}
+            placeholder="Mensagem no grupo..."
+          />
+        </View>
       </KeyboardAvoidingView>
     );
   };

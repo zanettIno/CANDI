@@ -7,10 +7,12 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import AppointmentCard from '../../../components/Card/AppointmentCard';
 import { useScrollToTop } from "expo-router/react-navigation";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
 export default function CompromissosView() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const [appointments, setAppointments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +68,7 @@ export default function CompromissosView() {
         )}
       </ScrollView>
 
-      <TouchableOpacity style={s.fab} onPress={() => router.push('/screens/agenda/compromissosAdd')} activeOpacity={0.88}>
+      <TouchableOpacity style={[s.fab, { bottom: 26 + insets.bottom }]} onPress={() => router.push('/screens/agenda/compromissosAdd')} activeOpacity={0.88}>
         <MaterialIcons name="add" size={24} color="#fff" />
       </TouchableOpacity>
     </View>

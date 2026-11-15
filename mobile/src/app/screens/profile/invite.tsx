@@ -11,6 +11,7 @@ import { createInvite, getMyInvites, getSupportNetwork, removeSupportMember, rev
 import { useToast } from '@/context/NotificationContext';
 import ActionSheet from '@/components/ActionSheet';
 import CANDITopBar from '@/components/CANDITopBar';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -91,7 +92,7 @@ export default function InviteScreen() {
         <Text style={s.headerSub}>Convide pessoas para acompanhar sua jornada</Text>
       </View>
 
-      <ScrollView ref={scrollRef} style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: 40 }}>
+      <KeyboardAwareScrollView ref={scrollRef} style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: 40 }}>
 
         {/* Formulário de convite */}
         <View style={s.card}>
@@ -187,7 +188,7 @@ export default function InviteScreen() {
           </View>
         )}
 
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
       <ActionSheet
         visible={!!removeSheet}

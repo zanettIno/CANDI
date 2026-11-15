@@ -92,7 +92,7 @@ export default function PassagemAdd() {
           <View style={s.loader}><ActivityIndicator color={AppTheme.colors.tertiary} /></View>
         ) : (
           <Animated.View style={[{ flex: 1 }, { opacity: fadeAnim }]}>
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'web' ? undefined : 'padding'}>
               <ScrollView
                 contentContainerStyle={s.page}
                 keyboardShouldPersistTaps="handled"

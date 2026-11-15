@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import { AppTheme } from '@/theme';
 import HomeBackground from '@/components/HomeBackground';
 import { SendButton } from '@/components/Buttons/sendButton';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const { height } = Dimensions.get('window');
 
@@ -151,6 +152,7 @@ const RecuperarSenha: React.FC = () => {
           </BackButton>
         </Header>
 
+        <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <ContentWrapper>
           <Title>Esqueceu sua senha?</Title>
           <Description>
@@ -179,6 +181,7 @@ const RecuperarSenha: React.FC = () => {
             </SignUpLink>
           </SignUpContainer>
         </ContentWrapper>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     </HomeBackground>
   );

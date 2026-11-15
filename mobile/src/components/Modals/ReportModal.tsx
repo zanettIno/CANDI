@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AppTheme } from '@/theme';
 import { reportPost } from '@/services/inviteService';
 import { useToast } from '@/context/NotificationContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const REASONS = [
   { value: 'inappropriate', label: 'Conteúdo inapropriado' },
@@ -23,6 +24,7 @@ interface ReportModalProps {
 }
 
 export const ReportModal: React.FC<ReportModalProps> = ({ visible, postId, onDismiss }) => {
+  const insets = useSafeAreaInsets();
   const [selected, setSelected] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -84,6 +86,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({ visible, postId, onDis
             )}
           </TouchableOpacity>
           <View style={{ height: 16 }} />
+          {/* Área da barra de navegação do Android / home indicator */}
+          <View style={{ height: insets.bottom }} />
         </View>
       </View>
     </Modal>

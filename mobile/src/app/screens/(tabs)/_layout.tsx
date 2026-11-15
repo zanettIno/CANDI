@@ -9,6 +9,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { useChat } from '@/context/ChatContext';
 import { useProfile } from '@/context/ProfileContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 registerTranslation("pt", pt);
 
@@ -25,6 +26,10 @@ export default function RootLayout() {
   });
   const { totalUnread } = useChat();
   const { role } = useProfile();
+  // Android (edge-to-edge no SDK 58): o app desenha atrás da barra de navegação do sistema.
+  // Somamos o inset inferior para a tab bar não ficar escondida atrás dos botões do Android.
+  const insets = useSafeAreaInsets();
+  const tabBarStyle = [styles.tabBar, { height: 64 + insets.bottom, paddingBottom: 8 + insets.bottom }];
 
   useEffect(() => {
     if (Platform.OS === 'web') {
@@ -49,7 +54,7 @@ export default function RootLayout() {
           headerShown: false,
           tabBarActiveTintColor: ACTIVE_COLOR,
           tabBarInactiveTintColor: INACTIVE_COLOR,
-          tabBarStyle: styles.tabBar,
+          tabBarStyle,
           tabBarLabelStyle: styles.tabLabel,
           tabBarItemStyle: styles.tabItem,
         }}
@@ -67,7 +72,7 @@ export default function RootLayout() {
                 color={color as string}
               />
             ),
-            tabBarStyle: styles.tabBar,
+            tabBarStyle,
           }}
         />
         <Tabs.Screen
@@ -111,7 +116,7 @@ export default function RootLayout() {
           }}
         />
         {/* Aba Admin — visível apenas para role=admin via href externo */}
-        {role === 'admin' && (
+        <Tabs.Protected guard={role === 'admin'}>
           <Tabs.Screen
             name="adminDummy"
             listeners={({ navigation }) => ({
@@ -128,7 +133,7 @@ export default function RootLayout() {
               tabBarActiveTintColor: '#ef4444',
             }}
           />
-        )}
+        </Tabs.Protected>
       </Tabs>
     </PaperProvider>
   );

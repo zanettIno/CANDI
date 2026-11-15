@@ -10,6 +10,7 @@ import InputCode from '@/components/Inputs/inputCode';
 import InputNewPassword from '@/components/Inputs/inputNewPassword';
 import InputConfirmNewPassword from '@/components/Inputs/inputConfirmNewPassword';
 import { SendButton } from '@/components/Buttons/sendButton';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const { width, height } = Dimensions.get('window');
 
@@ -98,6 +99,7 @@ const NewPasswordScreen: React.FC = () => {
           </BackButton>
         </Header>
 
+        <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
         <ContentWrapper>
           <Title>Nova senha</Title>
           <Description>
@@ -136,6 +138,7 @@ const NewPasswordScreen: React.FC = () => {
             disabled={!isFormValid}
           />
         </ContentWrapper>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     </HomeBackground>
   );

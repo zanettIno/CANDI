@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, ScrollView,
   RefreshControl, Platform, StatusBar, ActivityIndicator,
-  TextInput, Alert, Modal, Image,
+  TextInput, Alert, Modal, Image, KeyboardAvoidingView,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
@@ -18,6 +19,7 @@ import { useToast } from '@/context/NotificationContext';
 import { useProfile } from '@/context/ProfileContext';
 import CANDITopBar from '@/components/CANDITopBar';
 import { API_BASE_URL } from '@/constants/api';
+import { disconnectSocket } from '@/services/socketService';
 
 const TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -32,6 +34,7 @@ const REASON_LABELS: Record<string, string> = {
 };
 
 export default function AdminPanel() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
   const { profileId, profileName } = useProfile();
@@ -143,6 +146,7 @@ export default function AdminPanel() {
   };
 
   const doLogout = async () => {
+    disconnectSocket(); // senão o socket continua autenticado como este usuário no próximo login
     await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userRole']);
     router.replace('/');
   };
@@ -456,8 +460,8 @@ export default function AdminPanel() {
 
       {/* Modal criar admin */}
       <Modal visible={showCreateAdmin} transparent animationType="slide" onRequestClose={() => setShowCreateAdmin(false)}>
-        <View style={s.modalOverlay}>
-          <View style={s.modalSheet}>
+        <KeyboardAvoidingView style={s.modalOverlay} behavior={Platform.OS === 'web' ? undefined : 'padding'}>
+          <View style={[s.modalSheet, { paddingBottom: insets.bottom }]}>
             <View style={s.modalHandle} />
             <View style={s.modalHeader}>
               <Text style={s.modalTitle}>Criar novo admin</Text>
@@ -478,7 +482,7 @@ export default function AdminPanel() {
             </TouchableOpacity>
             <View style={{ height: 16 }} />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
   );

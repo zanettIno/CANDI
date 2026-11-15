@@ -15,6 +15,7 @@ import GoogleOAuth from '../components/Buttons/GoogleButton'
 const CLARITY_PROJECT_ID = "tlhkwdjvv6";
 
 import { login } from 'services/authService';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const { width } = Dimensions.get('window');
 
@@ -73,6 +74,7 @@ export default function Index() {
       <View style={[styles.container, { backgroundColor: AppTheme.colors.background }]}>
         <StatusBar barStyle="light-content" />
         <LoginSignupBackground>
+          <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
           <View style={styles.contentWrapper}>
             
             <View style={styles.logoContainer}>
@@ -145,6 +147,7 @@ export default function Index() {
               </TouchableOpacity>
             </View>
           </View>
+          </KeyboardAwareScrollView>
         </LoginSignupBackground>
       </View>
     </PaperProvider>

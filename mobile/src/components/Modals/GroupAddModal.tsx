@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
   Modal, View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ActivityIndicator, ScrollView, Image, Platform, Alert,
+  ActivityIndicator, ScrollView, Image, Platform, Alert, KeyboardAvoidingView,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { AppTheme } from '@/theme';
 import { uploadGroupImage } from '@/services/communityService';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TOPICS = ['GERAL', 'SAÚDE', 'APOIO', 'TRATAMENTO', 'NUTRIÇÃO', 'EXERCÍCIO', 'MENTAL'];
 
@@ -17,6 +18,7 @@ interface GroupAddProps {
 }
 
 const GroupAddModal: React.FC<GroupAddProps> = ({ visible, onDismiss, onCreateGroup }) => {
+  const insets = useSafeAreaInsets();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [topic, setTopic] = useState('GERAL');
@@ -67,6 +69,7 @@ const GroupAddModal: React.FC<GroupAddProps> = ({ visible, onDismiss, onCreateGr
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onDismiss}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'web' ? undefined : 'padding'}>
       <TouchableOpacity style={s.backdrop} activeOpacity={1} onPress={onDismiss} />
       <View style={s.sheet}>
         <View style={s.handle} />
@@ -162,7 +165,10 @@ const GroupAddModal: React.FC<GroupAddProps> = ({ visible, onDismiss, onCreateGr
             )}
           </TouchableOpacity>
         </ScrollView>
+        {/* Área da barra de navegação do Android / home indicator */}
+        <View style={{ height: insets.bottom }} />
       </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };

@@ -10,6 +10,7 @@ import LoginSignupBackground from '../components/LoginSignupBackground';
 import { getInviteInfo, registerSupport } from '../services/inviteService';
 import { login } from '../services/authService';
 import { useToast } from '@/context/NotificationContext';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -109,7 +110,7 @@ export default function CadastroSupport() {
         </View>
       </View>
 
-      <ScrollView style={s.body} contentContainerStyle={s.scrollContent} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView style={s.body} contentContainerStyle={s.scrollContent} showsVerticalScrollIndicator={false}>
 
         {/* Permissões concedidas */}
         {inviteData?.permissions?.length > 0 && (
@@ -210,7 +211,7 @@ export default function CadastroSupport() {
           <Text style={s.loginLinkText}>Já tenho uma conta</Text>
         </TouchableOpacity>
 
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

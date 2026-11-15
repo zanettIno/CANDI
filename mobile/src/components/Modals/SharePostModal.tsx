@@ -12,6 +12,7 @@ const profilePicUri = (id?: string | null) => id ? `${S3_BASE}/${id}.jpg` : unde
 import { getInbox } from '@/services/chatService';
 import { sharePostToChat, getMyGroups } from '@/services/communityService';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface SharePostModalProps {
   visible: boolean;
@@ -27,6 +28,7 @@ type ListItem =
 export const SharePostModal: React.FC<SharePostModalProps> = ({
   visible, postId, postContent, onDismiss,
 }) => {
+  const insets = useSafeAreaInsets();
   const [items, setItems] = useState<ListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sharingId, setSharingId] = useState<string | null>(null);
@@ -125,6 +127,8 @@ export const SharePostModal: React.FC<SharePostModalProps> = ({
             }}
           />
         )}
+        {/* Área da barra de navegação do Android / home indicator */}
+        <View style={{ height: insets.bottom }} />
       </View>
     </Modal>
   );

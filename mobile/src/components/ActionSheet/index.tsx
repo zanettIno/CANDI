@@ -4,6 +4,7 @@ import {
   Pressable, ScrollView,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppTheme } from '@/theme';
 
 export interface ActionSheetOption {
@@ -22,7 +23,9 @@ interface ActionSheetProps {
 
 export const ActionSheet: React.FC<ActionSheetProps> = ({
   visible, title, options, onDismiss,
-}) => (
+}) => {
+  const insets = useSafeAreaInsets();
+  return (
   <Modal
     visible={visible}
     transparent
@@ -31,7 +34,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
     statusBarTranslucent
   >
     <Pressable style={s.overlay} onPress={onDismiss}>
-      <View style={s.sheet}>
+      <View style={[s.sheet, { paddingBottom: 24 + insets.bottom }]}>
         <View style={s.handle} />
         {title && <Text style={s.title}>{title}</Text>}
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -66,7 +69,8 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       </View>
     </Pressable>
   </Modal>
-);
+  );
+};
 
 const s = StyleSheet.create({
   overlay: {

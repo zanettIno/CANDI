@@ -10,6 +10,7 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import LoginSignupBackground from '../../../components/LoginSignupBackground';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -80,7 +81,7 @@ export default function MarcosEdit() {
           </View>
         </View>
 
-        <ScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <KeyboardAwareScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
 
           <View style={s.section}>
             <Text style={s.sectionLabel}>Informações do marco</Text>
@@ -136,7 +137,7 @@ export default function MarcosEdit() {
             </TouchableOpacity>
           </View>
 
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </>
   );

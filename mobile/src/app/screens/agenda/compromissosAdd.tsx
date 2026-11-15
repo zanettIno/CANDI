@@ -11,6 +11,7 @@ import { AppTheme } from '../../../theme';
 import { API_BASE_URL } from '../../../constants/api';
 import { useToast } from '@/context/NotificationContext';
 import { scheduleAppointmentNotification } from '@/services/notifications';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 // Fora do componente — evita remontagem a cada render
 const Field = ({ label, style: fieldStyle, children }: { label: string; style?: any; children: React.ReactNode }) => (
@@ -83,7 +84,7 @@ export default function CompromissosAdd() {
           </View>
         </View>
 
-        <ScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <KeyboardAwareScrollView style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={s.section}>
             <Text style={s.sectionLabel}>Informações</Text>
             <View style={s.card}>
@@ -140,7 +141,7 @@ export default function CompromissosAdd() {
               {saving ? <ActivityIndicator color="#fff" size="small" /> : <><MaterialIcons name="check" size={18} color="#fff" /><Text style={s.saveBtnText}>Salvar compromisso</Text></>}
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
 
       <DatePickerModal locale="pt" mode="single" visible={showDate} onDismiss={() => setShowDate(false)} date={date} onConfirm={({ date: d }) => { setShowDate(false); if (d) setDate(d); }} saveLabel="Salvar" label="Selecione a data" />

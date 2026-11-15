@@ -9,10 +9,12 @@ import MedicineCard from '../../../components/Card/MedicineCard';
 import ActionSheet from '@/components/ActionSheet';
 import { useToast } from '@/context/NotificationContext';
 import { useScrollToTop } from "expo-router/react-navigation";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
 export default function MedicamentosView() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
   const [medicines, setMedicines] = useState<any[]>([]);
@@ -96,7 +98,7 @@ export default function MedicamentosView() {
         )}
       </ScrollView>
 
-      <TouchableOpacity style={s.fab} onPress={() => router.push('/screens/agenda/medicamentosAdd')} activeOpacity={0.88}>
+      <TouchableOpacity style={[s.fab, { bottom: 26 + insets.bottom }]} onPress={() => router.push('/screens/agenda/medicamentosAdd')} activeOpacity={0.88}>
         <MaterialIcons name="add" size={24} color="#fff" />
       </TouchableOpacity>
 

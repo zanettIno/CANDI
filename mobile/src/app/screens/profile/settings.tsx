@@ -13,6 +13,8 @@ import { cancerTypes } from '../../../components/Inputs/inputTypeCancer';
 import { useProfile } from '@/context/ProfileContext';
 import { useToast } from '@/context/NotificationContext';
 import { API_BASE_URL } from '../../../constants/api';
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const STATUS_TOP = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 44;
 
@@ -28,6 +30,7 @@ const fieldStyles = StyleSheet.create({
 });
 
 export default function Settings() {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const { refreshProfile } = useProfile();
   const toast = useToast();
@@ -117,7 +120,7 @@ export default function Settings() {
           </View>
         </View>
 
-        <ScrollView ref={scrollRef} style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
+        <KeyboardAwareScrollView ref={scrollRef} style={s.body} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={s.section}>
             <Text style={s.sectionLabel}>Informações pessoais</Text>
             <View style={s.card}>
@@ -179,14 +182,14 @@ export default function Settings() {
                 : <><MaterialIcons name="check" size={18} color="#fff" /><Text style={s.saveBtnText}>Salvar alterações</Text></>}
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
 
       {/* Cancer type picker */}
       {showCancerPicker && (
         <View style={s.pickerOverlay}>
           <TouchableOpacity style={{ flex: 1 }} onPress={() => setShowCancerPicker(false)} />
-          <View style={s.pickerSheet}>
+          <View style={[s.pickerSheet, { paddingBottom: insets.bottom }]}>
             <View style={s.pickerHandle} />
             <View style={s.pickerHeader}>
               <Text style={s.pickerTitle}>Tipo de câncer</Text>

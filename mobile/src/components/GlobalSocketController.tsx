@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { Buffer } from 'buffer';
 import { useNotification } from '@/context/NotificationContext';
 import { useChat } from '@/context/ChatContext';
-import { initializeSocket } from '@/services/socketService';
+import { getOrCreateSocket, initializeSocket } from '@/services/socketService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { Socket } from 'socket.io-client';
 
@@ -52,11 +52,9 @@ export default function GlobalSocketController() {
 
     const attach = async () => {
       try {
-        const token = await AsyncStorage.getItem('accessToken');
-        if (!token || !mounted) return;
-        const myProfileId = await getMyProfileId();
-
-        const socket = await initializeSocket();
+        // Listeners vão na instância única do socket, mesmo sem login ainda:
+        // quando o usuário logar, o AuthGate conecta e os handlers já estão prontos.
+        const socket = getOrCreateSocket();
         if (!mounted) return;
 
         // Remove listeners anteriores (evita duplicatas no socket singleton)
@@ -88,8 +86,9 @@ export default function GlobalSocketController() {
         };
 
         // Handler: nova publicação → atualiza feed + notifica (exceto posts próprios)
-        const feedHandler = (data: { post_id: string; profile_name: string; topic: string; profile_id?: string; subgroup?: string }) => {
+        const feedHandler = async (data: { post_id: string; profile_name: string; topic: string; profile_id?: string; subgroup?: string }) => {
           if (!mounted) return;
+          const myProfileId = await getMyProfileId();
           triggerFeedRef.current?.();
           // Não notifica o próprio autor do post
           if (data.profile_id && data.profile_id === myProfileId) return;
@@ -107,6 +106,9 @@ export default function GlobalSocketController() {
         socketRef.current = socket;
         socket.on('inbox_update', inboxHandler);
         socket.on('new_post', feedHandler);
+
+        // Se já houver sessão salva, conecta agora
+        initializeSocket().catch(() => {});
       } catch {
         // Usuário não autenticado — silencioso
       }

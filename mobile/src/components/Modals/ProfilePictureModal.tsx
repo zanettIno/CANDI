@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppTheme } from '../../theme';
 import { API_BASE_URL, S3_PROFILE_IMAGES_URL } from '../../constants/api';
 import { useToast } from '@/context/NotificationContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const S3_BASE = S3_PROFILE_IMAGES_URL;
 
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const ProfilePictureModal: React.FC<Props> = ({ visible, onDismiss, user, onPictureUpdate }) => {
+  const insets = useSafeAreaInsets();
   const [uploading, setUploading] = useState(false);
   const toast = useToast();
 
@@ -131,6 +133,8 @@ const ProfilePictureModal: React.FC<Props> = ({ visible, onDismiss, user, onPict
             </View>
           )}
           <View style={{ height: 16 }} />
+          {/* Área da barra de navegação do Android / home indicator */}
+          <View style={{ height: insets.bottom }} />
         </View>
       </View>
     </Modal>

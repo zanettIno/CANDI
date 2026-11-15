@@ -16,6 +16,7 @@ import ActionSheet from '@/components/ActionSheet';
 import { useProfile } from '@/context/ProfileContext';
 import { useToast } from '@/context/NotificationContext';
 import { S3_PROFILE_IMAGES_URL } from '@/constants/api';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const S3_BASE = S3_PROFILE_IMAGES_URL;
 const HIT_SLOP = { top: 10, bottom: 10, left: 10, right: 10 };
@@ -83,6 +84,7 @@ export const PostCardView: React.FC<PostCardViewProps> = ({
   onLikeToggle, onFavoriteToggle, onAdminDelete, onDelete, canDeleteAnyComment = false, groupId,
 }) => {
   const { profileId: myProfileId } = useProfile();
+  const insets = useSafeAreaInsets();
   const toast = useToast();
 
   // Estado inicializado diretamente dos props — o feedKey no FlatList garante remount a cada fetch
@@ -410,6 +412,8 @@ export const PostCardView: React.FC<PostCardViewProps> = ({
                 <Text style={styles.menuItemText}>Denunciar</Text>
               </TouchableOpacity>
             )}
+            {/* Área da barra de navegação do Android / home indicator */}
+            <View style={{ height: insets.bottom }} />
           </View>
         </Pressable>
       </Modal>

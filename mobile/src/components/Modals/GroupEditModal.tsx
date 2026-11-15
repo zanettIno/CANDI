@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  Modal, ScrollView, ActivityIndicator, Alert, Image, Platform,
+  Modal, ScrollView, ActivityIndicator, Alert, Image, Platform, KeyboardAvoidingView,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { AppTheme } from '@/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TOPICS = ['GERAL', 'SAÚDE', 'APOIO', 'TRATAMENTO', 'NUTRIÇÃO', 'EXERCÍCIO', 'MENTAL'];
 
@@ -30,6 +31,7 @@ export const GroupEditModal: React.FC<GroupEditModalProps> = ({
   initialPhotoUrl, initialBannerUrl,
   onDismiss, onSave, onUploadImage,
 }) => {
+  const insets = useSafeAreaInsets();
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
   const [topic, setTopic] = useState(initialTopic || 'GERAL');
@@ -104,7 +106,7 @@ export const GroupEditModal: React.FC<GroupEditModalProps> = ({
 
   return (
     <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen" onRequestClose={onDismiss}>
-      <View style={s.overlay}>
+      <KeyboardAvoidingView style={s.overlay} behavior={Platform.OS === 'web' ? undefined : 'padding'}>
         <View style={s.sheet}>
           <View style={s.sheetHandle} />
           <View style={s.sheetHeader}>
@@ -216,8 +218,10 @@ export const GroupEditModal: React.FC<GroupEditModalProps> = ({
               )}
             </TouchableOpacity>
           </ScrollView>
+          {/* Área da barra de navegação do Android / home indicator */}
+          <View style={{ height: insets.bottom }} />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };

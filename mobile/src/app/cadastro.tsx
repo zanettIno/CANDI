@@ -25,6 +25,7 @@ import TermsModal from "../components/Modals/TermsModal";
 import { useRouter } from "expo-router";
 import BackIconButton from "@/components/BackIconButton";
 import { API_BASE_URL } from "constants/api";
+import KeyboardAwareScrollView from '@/components/KeyboardAwareScrollView';
 
 const { width } = Dimensions.get("window");
 const endpoint = `${API_BASE_URL}/auth/register`;
@@ -169,7 +170,7 @@ export default function Cadastro() {
         <StatusBar
           barStyle="light-content"
         />
-        <ScrollView
+        <KeyboardAwareScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
@@ -349,7 +350,7 @@ export default function Cadastro() {
               />
             </View>
           </LoginSignupBackground>
-        </ScrollView>
+        </KeyboardAwareScrollView>
 
         <TermsModal
           visible={termsModalVisible}
