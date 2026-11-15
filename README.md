@@ -22,7 +22,7 @@ O repositório é um **monorepo** e reúne as três partes do sistema: o **app m
 ## :busts_in_silhouette: O grupo CANDI é composto por:
 
 <p align="center">
-  <img src="mobile/assets/images/equipe-candi-sem-fundo.png" alt="Equipe CANDI" width="300" />
+  <img src="mobile/assets/images/equipe-candi-sem-fundo.png" alt="Equipe CANDI" style="width: 550px; max-width: 100%; height: auto; display: block; margin: -80px;" />
 </p>
 
 - **Carolina Pichelli Souza :violin: (dev front-end; designer; docs)**
@@ -30,7 +30,7 @@ O repositório é um **monorepo** e reúne as três partes do sistema: o **app m
 - **Guilherme Xavier Zanetti :drum: (scrum master; dev fullstack; ai admin; docs)**
 - **Heloísa Pichelli Souza :tada: (analista de sistemas; dev front-end; UI/UX)**
 - **Lucas Batista de Sousa :desktop_computer: (dev back-end)**
-- **Nuno Kasuo Tronco Yokoji :long_drum: (DBA)**
+- **Nuno Kasuo Tronco Yokoji :long_drum: (dev back-end; DBA)**
 
 **Parceiro:** Rede Feminina de Combate ao Câncer de São Caetano do Sul
 
@@ -445,5 +445,6 @@ Selecionadas do Documento de Visão do Projeto CANDI (v3.0, 2025):
 
 <p align="center">
   Feito com cuidado para quem enfrenta o câncer e para quem caminha ao lado.<br/>
-  <strong>Grupo CANDI · Fatec São Caetano do Sul · 2025-2026</strong>
+  <strong>Grupo CANDI · Fatec São Caetano do Sul · 2025-2026</strong><br/>
+  <sub>© 2025-2026 Grupo CANDI. Todos os direitos reservados.</sub>
 </p>
